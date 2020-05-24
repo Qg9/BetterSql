@@ -1,0 +1,15 @@
+net\zey\bettersql\arguments\TableArguments.class
+net\zey\bettersql\request\Request.class
+net\zey\bettersql\condition\Condition.class
+net\zey\bettersql\arguments\TableArgumentsType.class
+net\zey\bettersql\request\UpdateRequest.class
+net\zey\bettersql\database\Database.class
+net\zey\bettersql\database\Table.class
+net\zey\bettersql\request\RemoveRequest.class
+net\zey\bettersql\condition\RepCondition.class
+net\zey\bettersql\database\SQLObject.class
+net\zey\bettersql\condition\EqualCondition.class
+net\zey\bettersql\request\SelectRequest.class
+net\zey\bettersql\H.class
+net\zey\bettersql\request\AddRequest.class
+net\zey\bettersql\arguments\TableDefaultArgumentsType.class
