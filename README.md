@@ -38,3 +38,32 @@ To insert a line in a database you just have to use the function ``Table#add(Lis
 ```java
 t.add(Arrays.asList(H.ob("Adrien"), H.ob(14), H.ob("A very good baker!"))).sendSql();
 ```
+
+### Update Request
+
+To update a database, use the function Table#update(HashMap<String, SQLObject>), and Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<SQLObject>);`` You can add the function ``Request#where(String, SQLObject);`` which adds a condition, this condition is mandatory for certain request like select or remove.
+```java
+t.update(H.hash(Arrays.asList("age", "bio"), Arrays.asList(H.ob(15), H.ob("My nex biographie")).where("name", H.ob("Zey")).sendSql();
+```
+
+### Select Request
+
+To Select a row in a database, you must use the ``Table#select()`` function; with a condition. The ``SelectRequest#sendSql();`` return a List<SQLObject>. If the list is empty, the condition return false, and therefore the line you are looking for does not exist. You can therefore make a ``Table#add();``
+```java
+List<SQLObject> all = t.select().where("name", H.ob("Zey")).sendSql();
+
+        String bio;
+        int age;
+
+        if(all.isEmpty()){
+            //Do when player isn't in the database
+            //Exemple :
+            t.add(Arrays.asList(H.ob("Zey"), H.ob(14), H.ob("A default Biographie"))).sendSql();
+            age = 14;
+            bio = "A default Biographie";
+        }else{
+            //If the player was in the database
+            age = all.get(1).getInt();
+            bio = all.get(2).getString();
+        }
+```
