@@ -19,7 +19,8 @@ tbArgs.add(new TableArguments(TableArgumentsType.INT, "age", 1024, TableDefaultA
 tbArgs.add(new TableArguments(TableArgumentsType.VARCHAR, "bio", 32, TableDefaultArgumentsType.DEFAULT_VALUE).setData("Default Biographie Set !"));
 
 Table t = db.getTable("city", tbArgs);
-t.createTable();```
+t.createTable();
+```
 
 It's a bit long, isn't it? That's why I created the class H. It allows you to make shortcuts like the function ``H#args(String type, String name, int value, String default);`` Don't use the enumerations, but only the first 2 letters, for more explanation, just look directly in the .java of the enum.
 
