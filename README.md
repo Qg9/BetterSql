@@ -29,3 +29,12 @@ It's a bit long, isn't it? That's why I created the class H. It allows you to ma
 Table t = db.getTable("city", Arrays.asList(H.args("va", "name", 32, H.args("in", "age", 1024, "no"), H.args("te", "bio", 1024, "no"));
 t.createTable();
 ```
+
+## Request
+
+### Add Request
+
+To insert a line in a database you just have to use the function ``Table#add(List<SQLObject>)``, SQLObject can either be a String; or an int, or a date. You can create it with the constructor or with my helper class (H) with the function ``H#ob(String/int/Date);``.
+```java
+t.add(Arrays.asList(H.ob("Adrien"), H.ob(14), H.ob("A very good baker!"))).sendSql();
+```
