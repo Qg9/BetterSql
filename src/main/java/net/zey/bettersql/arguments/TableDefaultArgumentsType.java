@@ -2,9 +2,13 @@ package net.zey.bettersql.arguments;
 
 public enum TableDefaultArgumentsType {
 
-    CURRENT_TIMESTAMP("CURRENT_TIMESTAMP", "cu"),
+    //Null Default Value is set when you don't add a line,
     NULL("NULL", "nu"),
+    //No default Value is used when the value is mandatory,
     NO("NO USED", "no"),
+    //Current Timestamp is for date, the default value was the
+    CURRENT_TIMESTAMP("CURRENT_TIMESTAMP", "cu"),
+    //Default Value is a custom value, you can define here with ArgumentsType#setData(String value); (it return the ArgumentsType)
     DEFAULT_VALUE("NO USED", "de");
 
     private final String sql;

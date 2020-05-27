@@ -1,5 +1,6 @@
 package net.zey.bettersql.request;
 
+import net.zey.bettersql.condition.DateCondition;
 import net.zey.bettersql.condition.EqualCondition;
 import net.zey.bettersql.condition.RepCondition;
 import net.zey.bettersql.database.SQLObject;
@@ -20,8 +21,13 @@ public class UpdateRequest extends Request{
         this.all = all;
     }
 
-    public UpdateRequest where(String name, SQLObject sql){
+    public UpdateRequest whereEqual(String name, SQLObject sql){
         setCondition(new EqualCondition(sql, name));
+        return this;
+    }
+
+    public UpdateRequest whereDate(String column, boolean isOutaded){
+        setCondition(new DateCondition(column, isOutaded));
         return this;
     }
 

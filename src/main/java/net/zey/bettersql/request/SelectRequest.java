@@ -1,15 +1,13 @@
 package net.zey.bettersql.request;
 
 import net.zey.bettersql.arguments.TableArguments;
+import net.zey.bettersql.condition.DateCondition;
 import net.zey.bettersql.condition.EqualCondition;
 import net.zey.bettersql.condition.RepCondition;
 import net.zey.bettersql.database.SQLObject;
 import net.zey.bettersql.database.Table;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +17,13 @@ public class SelectRequest extends Request{
         super(table, sql);
     }
 
-    public SelectRequest where(String name, SQLObject sql){
+    public SelectRequest whereEqual(String name, SQLObject sql){
         setCondition(new EqualCondition(sql, name));
+        return this;
+    }
+
+    public SelectRequest whereDate(String column, boolean isOutaded){
+        setCondition(new DateCondition(column, isOutaded));
         return this;
     }
 

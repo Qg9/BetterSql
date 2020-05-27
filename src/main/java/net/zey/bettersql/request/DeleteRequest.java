@@ -10,14 +10,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class RemoveRequest extends Request{
+public class DeleteRequest extends Request{
 
-    public RemoveRequest(Table table, StringBuilder sql) {
+    public DeleteRequest(Table table, StringBuilder sql) {
         super(table, sql);
     }
 
 
-    public RemoveRequest where(String name, SQLObject sql){
+    public DeleteRequest where(String name, SQLObject sql){
         setCondition(new EqualCondition(sql, name));
         return this;
     }

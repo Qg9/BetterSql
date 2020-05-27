@@ -3,7 +3,7 @@ package net.zey.bettersql.database;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableDefaultArgumentsType;
 import net.zey.bettersql.request.AddRequest;
-import net.zey.bettersql.request.RemoveRequest;
+import net.zey.bettersql.request.DeleteRequest;
 import net.zey.bettersql.request.SelectRequest;
 import net.zey.bettersql.request.UpdateRequest;
 
@@ -76,10 +76,10 @@ public class Table {
         return new AddRequest(all, this, sql);
     }
 
-    public RemoveRequest delete(){
+    public DeleteRequest delete(){
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM " + name);
-        return new RemoveRequest(this, sql);
+        return new DeleteRequest(this, sql);
     }
 
     public UpdateRequest update(HashMap<String, SQLObject> all){

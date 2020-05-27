@@ -18,7 +18,6 @@ public class AddRequest extends Request{
         this.all = all;
     }
 
-
     public void sendSql() {
         String s = getSql().toString();
         try {
