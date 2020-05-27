@@ -2,6 +2,43 @@
  
 ## Get Started
 
+### Java Version 
+
+| Version | Supported          |Recommended       | 
+| ------- | ------------------ |------------------|
+| > 8.0   | :white_check_mark: |:x:               |
+| 8.0.x   | :white_check_mark: |:white_check_mark:|
+| < 8.0   | :x:                |:x:               |
+
+### Maven
+
+```xml
+<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.github.Zey-dev</groupId>
+  <artifactId>BetterSql</artifactId>
+  <version>0.0.2</version>
+</dependency>
+```
+### Gradle
+
+```gradle
+allprojects {
+  repositories {
+    maven { url 'https://jitpack.io' }
+  }
+}
+
+dependencies {
+  implementation 'com.github.Zey-dev:BetterSql:0.0.2'
+}
+```
 ## Create a Database 
 To start, we will have to create Database. The library uses SQLite, so the db will be local. 
 Just make a Database object ``new Database(String where, String name);``, and use the function ``Database#connect();``
