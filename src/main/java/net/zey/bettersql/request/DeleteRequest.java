@@ -1,7 +1,6 @@
 package net.zey.bettersql.request;
 
-import net.zey.bettersql.condition.EqualCondition;
-import net.zey.bettersql.condition.RepCondition;
+import net.zey.bettersql.condition.*;
 import net.zey.bettersql.database.SQLObject;
 import net.zey.bettersql.database.Table;
 
@@ -17,8 +16,13 @@ public class DeleteRequest extends Request{
     }
 
 
-    public DeleteRequest where(String name, SQLObject sql){
-        setCondition(new EqualCondition(sql, name));
+    public DeleteRequest where(String name, SQLObject sql, Sym symbol){
+        setCondition(new ClassicCondition(name, sql, symbol));
+        return this;
+    }
+
+    public DeleteRequest whereDate(String column, boolean isOutaded){
+        setCondition(new DateCondition(column, isOutaded));
         return this;
     }
 
