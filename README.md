@@ -79,6 +79,7 @@ t.delete().where("name", H.ob("Zey")).sendSql();
 ## Thanks !
 
 Thanks for using my library, if you want to give me a donations don't wait x) 
-» [My Paypal](https://www.paypal.me/zey-dev)
-» [My Discord](https://discord.gg/BDbexTa)
-» [My Website](https://zey-dev.fr)
+
+#### » [My Paypal](https://www.paypal.me/zeydev)
+#### » [My Discord](https://discord.gg/BDbexTa)
+#### » [My Website](https://zey-dev.fr)
