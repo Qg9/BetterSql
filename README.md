@@ -67,3 +67,18 @@ List<SQLObject> all = t.select().where("name", H.ob("Zey")).sendSql();
             bio = all.get(2).getString();
         }
 ```
+### Delete Request 
+
+To delete a Row in a database, you must use ``Table#delete()`` function and a condition. Don't forget to use ``RemoveRequest#sendSql()`` 
+to send your request.
+
+```java
+t.delete().where("name", H.ob("Zey")).sendSql();
+```
+
+## Thanks !
+
+Thanks for using my library, if you want to give me a donations don't wait x) 
+» [My Paypal](https://www.paypal.me/zey-dev)
+» [My Discord](https://discord.gg/BDbexTa)
+» [My Website](https://zey-dev.fr)
