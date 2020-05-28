@@ -18,14 +18,16 @@ public class AddRequest extends Request{
         this.all = all;
     }
 
-    public void sendSql() {
+    public void sendSql(){
         String s = getSql().toString();
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        if(getTable().getData().isInLocal()){
+            try {
+                Class.forName("org.sqlite.JDBC");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-        try (Connection conn = DriverManager.getConnection(getTable().getData().getURL())){
+        try (Connection conn = getTable().getData().getConnection()){
             PreparedStatement p = conn.prepareStatement(s);
 
             int i = 1;

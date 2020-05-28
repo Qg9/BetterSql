@@ -43,7 +43,8 @@ dependencies {
 To start, we will have to create Database. The library uses SQLite, so the db will be local. 
 Just make a Database object ``new Database(String where, String name);``, and use the function ``Database#connect();``
 ```Java
- Database db = new Database("C:/Users/gq179/Desktop", "storage");
+ Database db = new SqliteDatabase("C:/Users/gq179/Desktop", "storage");
+ Database db = new HikariDatabase("storage", "Zey", "MyPassWord", "https://github.com/database", 3306, 20);
  db.connect();
 ```
 

@@ -7,6 +7,7 @@ import net.zey.bettersql.database.Table;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class UpdateRequest extends Request{
@@ -34,8 +35,14 @@ public class UpdateRequest extends Request{
             getSql().append(getCondition().getAdding());
         }
         try {
-            Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection(getTable().getData().getURL());
+            if(getTable().getData().isInLocal()){
+                try {
+                    Class.forName("org.sqlite.JDBC");
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            Connection conn = getTable().getData().getConnection();
             PreparedStatement p = conn.prepareStatement(getSql().toString());
 
             int i = 1;
@@ -54,7 +61,7 @@ public class UpdateRequest extends Request{
             p.executeUpdate();
             p.close();
         }
-        catch (Exception se){
+        catch (SQLException se){
             se.printStackTrace();
         }
     }

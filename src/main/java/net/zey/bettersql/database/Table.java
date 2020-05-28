@@ -56,7 +56,7 @@ public class Table {
 
         try{
             Class.forName("org.sqlite.JDBC");
-            Connection connection = DriverManager.getConnection(data.getURL());
+            Connection connection = data.getConnection();
             Statement statement = connection.createStatement();
             statement.execute(sql.toString());
         } catch (SQLException | ClassNotFoundException e) {

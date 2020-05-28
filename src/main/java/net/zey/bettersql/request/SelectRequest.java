@@ -19,7 +19,7 @@ public class SelectRequest extends Request{
         setCondition(new ClassicCondition(name, sql, symbol));
         return this;
     }
-    
+
     public SelectRequest whereDate(String column, boolean isOutaded){
         setCondition(new DateCondition(column, isOutaded));
         return this;
@@ -32,10 +32,10 @@ public class SelectRequest extends Request{
             }
             try {
                 Class.forName("org.sqlite.JDBC");
-            } catch (Exception e) {
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            Connection conn = DriverManager.getConnection(getTable().getData().getURL());
+            Connection conn = getTable().getData().getConnection();
             PreparedStatement p = conn.prepareStatement(getSql().toString());
 
             if (getCondition() != null) {
@@ -57,7 +57,7 @@ public class SelectRequest extends Request{
             }
 
             return all;
-        }catch(Exception e){
+        }catch(SQLException e){
             e.printStackTrace();
         }
         return new ArrayList<>();

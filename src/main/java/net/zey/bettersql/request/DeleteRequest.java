@@ -36,7 +36,7 @@ public class DeleteRequest extends Request{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        try (Connection conn = DriverManager.getConnection(getTable().getData().getURL())){
+        try (Connection conn = getTable().getData().getConnection()){
             PreparedStatement p = conn.prepareStatement(s);
 
             if (getCondition() != null) {
