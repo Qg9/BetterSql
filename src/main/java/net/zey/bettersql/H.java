@@ -27,6 +27,17 @@ public class H {
         return new TableArguments(TableArgumentsType.getByLetter(type), name, value, TableDefaultArgumentsType.getByLetter(defaultType));
     }
 
+    public static TableArguments varArgs(String name, int value){
+        return new TableArguments(TableArgumentsType.VARCHAR, name, value, TableDefaultArgumentsType.NO);
+    }
+    public static TableArguments intArgs(String name, int value){
+        return new TableArguments(TableArgumentsType.INT, name, value, TableDefaultArgumentsType.NO);
+    }
+
+    public static TableArguments textArgs(String name, int value){
+        return new TableArguments(TableArgumentsType.TEXT, name, value, TableDefaultArgumentsType.NO);
+    }
+
     public static HashMap hash(List<String> name, List<SQLObject> values){
         HashMap<String, SQLObject> map = new HashMap<>();
         if(name.size() != values.size())return map;
