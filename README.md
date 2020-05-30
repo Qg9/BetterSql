@@ -24,7 +24,7 @@
   <dependency>
     <groupId>com.github.Zey-dev</groupId>
     <artifactId>BetterSql</artifactId>
-    <version>0.0.5</version>
+    <version>0.0.6</version>
   </dependency>
 </dependencies>
 ```
@@ -38,7 +38,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.Zey-dev:BetterSql:0.0.5'
+  implementation 'com.github.Zey-dev:BetterSql:0.0.6'
 }
 ```
 ## Create a Database 
@@ -62,7 +62,7 @@ Table t = db.getTable("city", tbArgs);
 t.createTable();
 ```
 
-It's a bit long, isn't it? That's why I created the class H. It allows you to make shortcuts like the function ``H#args(String type, String name, int value, String default);`` Don't use the enumerations, but only the first 2 letters, for more explanation, just look directly in the .java of the enum.
+It's a bit long, isn't it? That's why I created the class H. It allows you to make shortcuts like the function ``H#args(String type, String name, int value, String default);`` Don't use the enumerations, but only the first 2 letters, for more explanation, just look directly in the .java of the enum. In 0.0.6, you have new function, ``H.varArgs(String name, int value);`` (They are : ``varArgs``, ``intArgs`` and ``textArgs``. They return an ArgumentsType like the function name and a NO_NULL default value.
 
 ```Java
 //That was the same result
