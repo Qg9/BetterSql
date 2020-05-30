@@ -20,11 +20,13 @@
   </repository>
 </repositories>
 
-<dependency>
-  <groupId>com.github.Zey-dev</groupId>
-  <artifactId>BetterSql</artifactId>
-  <version>0.0.3</version>
-</dependency>
+<dependencies>
+  <dependency>
+    <groupId>com.github.Zey-dev</groupId>
+    <artifactId>BetterSql</artifactId>
+    <version>0.0.5</version>
+  </dependency>
+</dependencies>
 ```
 ### Gradle
 
@@ -36,7 +38,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.Zey-dev:BetterSql:0.0.3'
+  implementation 'com.github.Zey-dev:BetterSql:0.0.5'
 }
 ```
 ## Create a Database 
