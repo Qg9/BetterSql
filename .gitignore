@@ -90,4 +90,8 @@ fabric.properties
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
 
+<<<<<<< HEAD
 # End of https://www.gitignore.io/api/intellij
+=======
+# End of https://www.gitignore.io/api/intellij
+>>>>>>> 8b58fd701f4aef86fb003c6b745f39b24ebe75a1
