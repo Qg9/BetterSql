@@ -34,6 +34,11 @@ public class HikariDatabase extends Database {
     }
 
     @Override
+    public void close() {
+        source.close();
+    }
+
+    @Override
     public Connection getConnection() throws SQLException {
         return source.getConnection();
     }

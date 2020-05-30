@@ -55,7 +55,8 @@ public class SelectRequest extends Request{
                     all.add(o);
                 }
             }
-
+            r.close();
+            p.close();
             return all;
         }catch(SQLException e){
             e.printStackTrace();

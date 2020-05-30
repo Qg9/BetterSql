@@ -22,6 +22,8 @@ public abstract class Database {
 
     public abstract void connect();
 
+    public abstract void close();
+
     public abstract Connection getConnection() throws SQLException;
 
     public Table getTable(String name, List<TableArguments> args){

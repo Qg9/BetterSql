@@ -33,8 +33,6 @@ public class SqliteDatabase extends Database{
                 conn = DriverManager.getConnection(getURL());
                 if (conn != null) {
                     DatabaseMetaData meta = conn.getMetaData();
-                    System.out.println("The driver name is " + meta.getDriverName());
-                    System.out.println("A new database has been created.");
                 }
 
             } catch (Exception e) {
@@ -52,9 +50,6 @@ public class SqliteDatabase extends Database{
             Connection conn = null;
             try {
                 conn = DriverManager.getConnection(getURL());
-
-                System.out.println("Connection to SQLite has been established.");
-
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
@@ -64,6 +59,15 @@ public class SqliteDatabase extends Database{
                     }
                 } catch (SQLException ex) {}
             }
+        }
+    }
+
+    @Override
+    public void close(){
+        try {
+            getConnection().close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
