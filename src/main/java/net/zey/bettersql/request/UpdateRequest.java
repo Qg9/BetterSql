@@ -24,8 +24,8 @@ public class UpdateRequest extends Request{
         return this;
     }
 
-    public UpdateRequest whereDate(String column, boolean isOutaded){
-        setCondition(new DateCondition(column, isOutaded));
+    public UpdateRequest whereDate(String column, boolean isOutdated){
+        setCondition(new DateCondition(column, isOutdated));
         return this;
     }
 

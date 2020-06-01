@@ -21,8 +21,8 @@ public class DeleteRequest extends Request{
         return this;
     }
 
-    public DeleteRequest whereDate(String column, boolean isOutaded){
-        setCondition(new DateCondition(column, isOutaded));
+    public DeleteRequest whereDate(String column, boolean isOudated){
+        setCondition(new DateCondition(column, isOudated));
         return this;
     }
 

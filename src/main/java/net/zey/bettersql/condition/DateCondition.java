@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class DateCondition extends Condition{
 
-    public DateCondition(String dateName, boolean isOudated) {
-        super("WHERE CURDATE() " + getSymbol(isOudated) + " " + dateName);
+    public DateCondition(String dateName, boolean isOutdated) {
+        super("WHERE CURDATE() " + getSymbol(isOutdated) + " " + dateName);
     }
 
-    private static String getSymbol(boolean isOudated){
-        if(isOudated){
+    private static String getSymbol(boolean isOutdated){
+        if(isOutdated){
             return "<";
         }else{
             return ">";

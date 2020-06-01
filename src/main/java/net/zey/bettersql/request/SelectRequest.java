@@ -20,8 +20,8 @@ public class SelectRequest extends Request{
         return this;
     }
 
-    public SelectRequest whereDate(String column, boolean isOutaded){
-        setCondition(new DateCondition(column, isOutaded));
+    public SelectRequest whereDate(String column, boolean isOutdated){
+        setCondition(new DateCondition(column, isOutdated));
         return this;
     }
 
