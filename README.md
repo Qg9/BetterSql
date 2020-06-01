@@ -123,3 +123,5 @@ Thanks for using my library, if you want to give me a donations don't wait x)
 #### » [My Paypal](https://www.paypal.me/zeydev)
 #### » [My Discord](https://discord.gg/BDbexTa)
 #### » [My Website](https://zey-dev.fr)
+
+[![](https://jitpack.io/v/Zey-dev/BetterSql.svg)](https://jitpack.io/#Zey-dev/BetterSql)
