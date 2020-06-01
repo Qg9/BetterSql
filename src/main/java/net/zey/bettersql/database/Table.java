@@ -1,5 +1,6 @@
 package net.zey.bettersql.database;
 
+import net.zey.bettersql.H;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableDefaultArgumentsType;
 import net.zey.bettersql.request.AddRequest;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class Table {
         }
         sql.append(")");
 
-        if(getData().isInLocal()){
+        if(getDatabase().isInLocal()){
             try{
                 Class.forName("org.sqlite.JDBC");
             }catch(ClassNotFoundException e){
@@ -100,6 +102,28 @@ public class Table {
             }
             column++;
         }
+        return new UpdateRequest(this, sql, all.values());
+    }
+
+    public UpdateRequest updateAll(List<SQLObject> all){
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE " + name + " SET ");
+
+        List<String> names = new ArrayList<>();
+        for(TableArguments arg : args){
+            names.add(arg.getName());
+        }
+
+        int column = 0;
+        for(String up : names) {
+            if (column == 0) {
+                sql.append(up + " = ?");
+            } else {
+                sql.append(", " + up + " = ?");
+            }
+            column++;
+        }
+
         return new UpdateRequest(this, sql, all);
     }
 
@@ -113,23 +137,11 @@ public class Table {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<TableArguments> getArgs() {
-        return args;
-    }
-
-    public void setArgs(List<TableArguments> args) {
-        this.args = args;
-    }
-
-    public Database getData() {
+    public Database getDatabase() {
         return data;
     }
 
-    public void setData(Database data) {
-        this.data = data;
+    public List<TableArguments> getArgs(){
+        return args;
     }
 }

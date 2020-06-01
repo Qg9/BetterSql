@@ -20,14 +20,14 @@ public class AddRequest extends Request{
 
     public void sendSql(){
         String s = getSql().toString();
-        if(getTable().getData().isInLocal()){
+        if(getTable().getDatabase().isInLocal()){
             try {
                 Class.forName("org.sqlite.JDBC");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        try (Connection conn = getTable().getData().getConnection()){
+        try (Connection conn = getTable().getDatabase().getConnection()){
             PreparedStatement p = conn.prepareStatement(s);
 
             int i = 1;

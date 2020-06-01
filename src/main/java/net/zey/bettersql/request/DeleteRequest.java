@@ -17,7 +17,7 @@ public class DeleteRequest extends Request{
 
 
     public DeleteRequest where(String name, SQLObject sql, Sym symbol){
-        setCondition(new ClassicCondition(name, sql, symbol));
+        setCondition(new ClassicCondition(name,sql, symbol));
         return this;
     }
 
@@ -36,7 +36,7 @@ public class DeleteRequest extends Request{
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        try (Connection conn = getTable().getData().getConnection()){
+        try (Connection conn = getTable().getDatabase().getConnection()){
             PreparedStatement p = conn.prepareStatement(s);
 
             if (getCondition() != null) {

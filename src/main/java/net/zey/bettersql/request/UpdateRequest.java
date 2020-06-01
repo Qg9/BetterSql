@@ -5,17 +5,16 @@ import net.zey.bettersql.database.SQLObject;
 import net.zey.bettersql.database.Table;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Collection;
 
 public class UpdateRequest extends Request{
 
 
-    private final HashMap<String, SQLObject> all;
+    private final Collection<SQLObject> all;
 
-    public UpdateRequest(Table table, StringBuilder sql, HashMap<String, SQLObject> all) {
+    public UpdateRequest(Table table, StringBuilder sql, Collection<SQLObject> all) {
         super(table, sql);
         this.all = all;
     }
@@ -35,22 +34,21 @@ public class UpdateRequest extends Request{
             getSql().append(getCondition().getAdding());
         }
         try {
-            if(getTable().getData().isInLocal()){
+            if(getTable().getDatabase().isInLocal()){
                 try {
                     Class.forName("org.sqlite.JDBC");
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }
-            Connection conn = getTable().getData().getConnection();
+            Connection conn = getTable().getDatabase().getConnection();
             PreparedStatement p = conn.prepareStatement(getSql().toString());
 
             int i = 1;
-            for(SQLObject o : all.values()){
+            for(SQLObject o : all){
                 set(i, o, p);
                 i++;
             }
-            System.out.println(getSql().toString());
 
             if (getCondition() != null) {
                 if(getCondition() instanceof RepCondition){

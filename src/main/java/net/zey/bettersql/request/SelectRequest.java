@@ -35,7 +35,7 @@ public class SelectRequest extends Request{
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            Connection conn = getTable().getData().getConnection();
+            Connection conn = getTable().getDatabase().getConnection();
             PreparedStatement p = conn.prepareStatement(getSql().toString());
 
             if (getCondition() != null) {

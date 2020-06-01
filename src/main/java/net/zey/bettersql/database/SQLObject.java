@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class SQLObject {
 
-    private Integer i;
+    private Integer n;
     private String s;
     private Date d;
 
-    public SQLObject(Integer i){
-        this.i = i;
+    public SQLObject(int n){
+        this.n = n;
     }
 
     public SQLObject(String s){
@@ -18,18 +18,6 @@ public class SQLObject {
 
     public SQLObject(Date d){
         this.d = d;
-    }
-
-    public int getInt() {
-        return i;
-    }
-
-    public void setInt(int i) {
-        this.i = i;
-    }
-
-    public boolean isInt(){
-        return i != null;
     }
 
     public String getString() {
@@ -55,4 +43,10 @@ public class SQLObject {
     public boolean isDate(){
         return d != null;
     }
+
+    public boolean isInt(){
+        return n != null;
+    }
+
+    public int getInt() { return n; }
 }
