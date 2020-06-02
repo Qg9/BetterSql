@@ -24,7 +24,7 @@
   <dependency>
     <groupId>com.github.Zey-dev</groupId>
     <artifactId>BetterSql</artifactId>
-    <version>0.0.6</version>
+    <version>1.0</version>
   </dependency>
 </dependencies>
 ```
@@ -38,7 +38,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.Zey-dev:BetterSql:0.0.6'
+  implementation 'com.github.Zey-dev:BetterSql:1.0'
 }
 ```
 ## Create a Database 
