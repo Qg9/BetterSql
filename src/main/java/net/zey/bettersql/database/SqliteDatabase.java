@@ -49,15 +49,16 @@ public class SqliteDatabase extends Database{
         }else {
             Connection conn = null;
             try {
+                Class.forName("org.sqlite.JDBC");
                 conn = DriverManager.getConnection(getURL());
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 try {
                     if (conn != null) {
                         conn.close();
                     }
-                } catch (SQLException ex) {}
+                } catch (Exception ex) {}
             }
         }
     }

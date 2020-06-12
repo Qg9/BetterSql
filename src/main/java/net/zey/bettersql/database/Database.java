@@ -20,7 +20,7 @@ public abstract class Database {
 
     public abstract String getURL();
 
-    public abstract void connect();
+    public abstract void connect() throws ClassNotFoundException;
 
     public abstract void close();
 
