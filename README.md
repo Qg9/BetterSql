@@ -24,7 +24,7 @@
   <dependency>
     <groupId>com.github.Zey-dev</groupId>
     <artifactId>BetterSql</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
   </dependency>
 </dependencies>
 ```
@@ -38,7 +38,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.Zey-dev:BetterSql:1.0'
+  implementation 'com.github.Zey-dev:BetterSql:1.1'
 }
 ```
 ## Create a Database 
@@ -47,7 +47,7 @@ Just make a Database object ``new Database(String where, String name);``, and us
 ```Java
  Database db = new SqliteDatabase("C:/Users/gq179/Desktop", "storage");
  Database db = new HikariDatabase("storage", "Zey", "MyPassWord", "https://github.com/database", 3306, 20);
- db.connect();
+ /*Version before 1.1*/ db.connect();
 ```
 
 ## Create Your Table
@@ -66,10 +66,18 @@ It's a bit long, isn't it? That's why I created the class H. It allows you to ma
 
 ```Java
 //That was the same result
+
+/*Before 1.1*/
 Table t = db.getTable("city", Arrays.asList(H.args("va", "name", 32, H.args("in", "age", 1024, "no"), H.args("te", "bio", 1024, "no"));
+/*After*/
+Table t = db.getTable("city", H.args("va", "name", 32, H.args("in", "age", 1024, "no"), H.args("te", "bio", 1024, "no");
 t.createTable();
 ```
-
+We can simplify more !!! I've added more speedy function !
+```Java
+Table t = db.getTable("city", H.varArgs("name", 32), H.intArgs("age", 4), H.textArgs("bio", 1024));
+t.createTable();
+```
 ## Request
 
 ### Add Request
@@ -83,7 +91,7 @@ t.add(Arrays.asList(H.ob("Adrien"), H.ob(14), H.ob("A very good baker!"))).sendS
 
 To update a database, use the function Table#update(HashMap<String, SQLObject>), and Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<SQLObject>);`` You can add the function ``Request#where(String, SQLObject);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
-t.update(H.hash(Arrays.asList("age", "bio"), Arrays.asList(H.ob(15), H.ob("My nex biographie")).where("name", H.ob("Zey"), Sym.EQU).sendSql();
+t.update(H.hash(Arrays.asList("age", "bio"), Arrays.asList(H.ob(15), H.ob("My nex biographie")).where("name", H.ob("Zey")).sendSql();
 ```
 
 ### Select Request
