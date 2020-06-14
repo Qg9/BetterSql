@@ -6,75 +6,36 @@ import java.sql.*;
 
 public class SqliteDatabase extends Database{
 
-    private String where;
-
     public SqliteDatabase(String where, String name){
-        super(name);
-        this.where = where;
-    }
+        try {
 
-    @Override
-    public String getURL(){
-        return "jdbc:sqlite:" + where + "/" + getName() + ".db";
-    }
+            File f = new File(where, name + ".db");
+            if(!f.exists())f.createNewFile();
 
+            Class.forName("org.sqlite.JDBC");
+            setConnection(DriverManager.getConnection("jdbc:sqlite:" + where + "/" + name + ".db"));
 
-    @Override
-    public void connect() {
-        if(!new File(where, getName() + ".db").exists()){
-            try {
-                new File(where, getName() + ".db").createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Connection conn = null;
-            try {
-                Class.forName("org.sqlite.JDBC");
-                conn = DriverManager.getConnection(getURL());
-                if (conn != null) {
-                    DatabaseMetaData meta = conn.getMetaData();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
-        }else {
-            Connection conn = null;
-            try {
-                Class.forName("org.sqlite.JDBC");
-                conn = DriverManager.getConnection(getURL());
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (Exception ex) {}
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void close(){
+    public void close() {
         try {
             getConnection().close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
     }
 
     @Override
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(getURL());
+    public boolean isConnected() {
+        return getConnection() != null;
     }
 
+    @Override
+    public boolean isLocal() {
+        return true;
+    }
 }

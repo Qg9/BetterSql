@@ -2,39 +2,45 @@ package net.zey.bettersql.database;
 
 import net.zey.bettersql.arguments.TableArguments;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Arrays;
 
 public abstract class Database {
 
-    private final String name;
+    private String name;
+    private Connection connection;
+
+    public Database(){
+
+    }
+
+    public Database(String name, Connection connection) {
+        this.name = name;
+        this.connection = connection;
+    }
 
     public Database(String name) {
         this.name = name;
     }
 
-    public abstract String getURL();
-
-    public abstract void connect() throws ClassNotFoundException;
-
     public abstract void close();
+    public abstract boolean isLocal();
+    public abstract boolean isConnected();
 
-    public abstract Connection getConnection() throws SQLException;
-
-    public Table getTable(String name, List<TableArguments> args){
-        return new Table(name, args, this);
-    }
-
-    public boolean isInLocal(){
-        return this instanceof SqliteDatabase;
+    public Table getTable(String name, TableArguments... args){
+        return new Table(name, Arrays.asList(args), this);
     }
 
     public String getName() {
         return name;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
     }
 }

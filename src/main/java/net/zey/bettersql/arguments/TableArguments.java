@@ -12,17 +12,12 @@ public class TableArguments {
 
     private boolean unique;
 
-    public TableArguments(TableArgumentsType type, String name, int value, TableDefaultArgumentsType defaultType){
+    public TableArguments(TableArgumentsType type, String name, int value, TableDefaultArgumentsType defaultType) {
         this.type = type;
         this.name = name;
         this.value = value;
         this.defaultType = defaultType;
     }
-
-    //CREATE TABLE `booo_clients`.`EMinage`
-    // ( `test` INT(32) NOT NULL AUTO_INCREMENT , `top` VARCHAR(32) NOT NULL , `test` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-    // PRIMARY KEY (`test`), UNIQUE (`top`)) ENGINE = InnoDB;
-
 
     public TableArgumentsType getType() {
         return type;

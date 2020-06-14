@@ -34,7 +34,7 @@ public class UpdateRequest extends Request{
             getSql().append(getCondition().getAdding());
         }
         try {
-            if(getTable().getDatabase().isInLocal()){
+            if(getTable().getDatabase().isLocal()){
                 try {
                     Class.forName("org.sqlite.JDBC");
                 } catch (ClassNotFoundException e) {

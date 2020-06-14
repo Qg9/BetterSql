@@ -14,6 +14,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class Table {
         }
         sql.append(")");
 
-        if(getDatabase().isInLocal()){
+        if(getDatabase().isLocal()){
             try{
                 Class.forName("org.sqlite.JDBC");
             }catch(ClassNotFoundException e){
@@ -72,15 +73,15 @@ public class Table {
         }
     }
 
-    public AddRequest add(List<SQLObject> all){
+    public AddRequest add(SQLObject... all){
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO " + name +  " VALUES(?" );
         for(Object o : all){
-            if(o == all.get(0))continue;
+            if(o == Arrays.asList(all).get(0))continue;
             sql.append(",?");
         }
         sql.append(")");
-        return new AddRequest(all, this, sql);
+        return new AddRequest(Arrays.asList(all), this, sql);
     }
 
     public DeleteRequest delete(){
