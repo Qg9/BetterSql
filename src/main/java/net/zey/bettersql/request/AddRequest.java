@@ -1,10 +1,10 @@
 package net.zey.bettersql.request;
 
-import net.zey.bettersql.database.SQLObject;
+import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.database.Table;
+import net.zey.bettersql.help.SqlResult;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,7 +18,8 @@ public class AddRequest extends Request{
         this.all = all;
     }
 
-    public void sendSql(){
+    @Override
+    public SqlResult sendSql(){
         String s = getSql().toString();
         if(getTable().getDatabase().isLocal()){
             try {
@@ -41,5 +42,6 @@ public class AddRequest extends Request{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return new SqlResult();
     }
 }

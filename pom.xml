@@ -6,7 +6,7 @@
 
     <groupId>net.zey</groupId>
     <artifactId>bettersql</artifactId>
-    <version>0.0.2</version>
+    <version>1.2.4</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -20,21 +20,21 @@
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.31.1</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>3.4.2</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.25</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

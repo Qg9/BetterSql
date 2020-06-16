@@ -1,12 +1,12 @@
-package net.zey.bettersql.condition;
+package net.zey.bettersql.help;
 
-public enum Sym {
+public enum Symbol {
 
     SUP(">"), INF("<"), EQU("=");
 
     private final String symbol;
 
-    Sym(String symbol){
+    Symbol(String symbol){
         this.symbol = symbol;
     }
 

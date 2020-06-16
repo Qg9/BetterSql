@@ -3,7 +3,7 @@ package net.zey.bettersql;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableArgumentsType;
 import net.zey.bettersql.arguments.TableDefaultArgumentsType;
-import net.zey.bettersql.database.SQLObject;
+import net.zey.bettersql.help.SQLObject;
 
 import java.sql.Date;
 import java.util.HashMap;

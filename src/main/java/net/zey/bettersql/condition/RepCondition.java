@@ -1,6 +1,6 @@
 package net.zey.bettersql.condition;
 
-import net.zey.bettersql.database.SQLObject;
+import net.zey.bettersql.help.SQLObject;
 
 public class RepCondition extends Condition{
 

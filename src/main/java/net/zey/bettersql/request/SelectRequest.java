@@ -2,8 +2,9 @@ package net.zey.bettersql.request;
 
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.condition.*;
-import net.zey.bettersql.database.SQLObject;
+import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.database.Table;
+import net.zey.bettersql.help.SqlResult;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,17 +16,8 @@ public class SelectRequest extends Request{
         super(table, sql);
     }
 
-    public SelectRequest where(String name, SQLObject sql, Sym symbol){
-        setCondition(new ClassicCondition(name, sql, symbol));
-        return this;
-    }
-
-    public SelectRequest whereDate(String column, boolean isOutdated){
-        setCondition(new DateCondition(column, isOutdated));
-        return this;
-    }
-
-    public List<SQLObject> sendSql() {
+    @Override
+    public SqlResult sendSql() {
         try {
             if (getCondition() != null) {
                 getSql().append(getCondition().getAdding());
@@ -57,11 +49,11 @@ public class SelectRequest extends Request{
             }
             r.close();
             p.close();
-            return all;
+            return new SqlResult(all);
         }catch(SQLException e){
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return new SqlResult(new ArrayList<>());
     }
 
 }

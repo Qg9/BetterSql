@@ -3,15 +3,20 @@ package net.zey.bettersql.request;
 import net.zey.bettersql.H;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableArgumentsType;
+import net.zey.bettersql.condition.ClassicCondition;
 import net.zey.bettersql.condition.Condition;
-import net.zey.bettersql.database.SQLObject;
+import net.zey.bettersql.condition.DateCondition;
+import net.zey.bettersql.help.Symbol;
+import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.database.Table;
+import net.zey.bettersql.help.SqlResult;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Request {
+public abstract class Request {
+
     private StringBuilder sql;
     private Table table;
     private Condition condition;
@@ -19,6 +24,23 @@ public class Request {
     public Request(Table table, StringBuilder sql){
         this.table = table;
         this.sql = sql;
+    }
+
+    public abstract SqlResult sendSql();
+
+    public Request where(String name, SQLObject sql){
+        setCondition(new ClassicCondition(name, sql, Symbol.EQU));
+        return this;
+    }
+
+    public Request where(String name, SQLObject sql, Symbol symbol){
+        setCondition(new ClassicCondition(name,sql, symbol));
+        return this;
+    }
+
+    public Request where(String column, boolean isOutdated){
+        setCondition(new DateCondition(column, isOutdated));
+        return this;
     }
 
     public void set(int i, SQLObject o, PreparedStatement ps){
@@ -37,6 +59,7 @@ public class Request {
 
     public SQLObject get(TableArguments arg, ResultSet resultSet) throws SQLException {
         TableArgumentsType tp = arg.getType();
+
         if(tp == TableArgumentsType.VARCHAR || tp == TableArgumentsType.TEXT){
             return H.ob(resultSet.getString(arg.getName()));
         }else if(tp == TableArgumentsType.INT){

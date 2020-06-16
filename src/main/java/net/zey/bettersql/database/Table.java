@@ -1,16 +1,14 @@
 package net.zey.bettersql.database;
 
-import net.zey.bettersql.H;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableDefaultArgumentsType;
+import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.request.AddRequest;
 import net.zey.bettersql.request.DeleteRequest;
 import net.zey.bettersql.request.SelectRequest;
 import net.zey.bettersql.request.UpdateRequest;
 
-import java.io.FileNotFoundException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -106,7 +104,7 @@ public class Table {
         return new UpdateRequest(this, sql, all.values());
     }
 
-    public UpdateRequest updateAll(List<SQLObject> all){
+    public UpdateRequest updateAll(SQLObject... all){
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE " + name + " SET ");
 
@@ -125,7 +123,7 @@ public class Table {
             column++;
         }
 
-        return new UpdateRequest(this, sql, all);
+        return new UpdateRequest(this, sql, Arrays.asList(all));
     }
 
     public SelectRequest select(){

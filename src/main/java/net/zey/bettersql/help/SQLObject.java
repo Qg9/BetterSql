@@ -1,4 +1,4 @@
-package net.zey.bettersql.database;
+package net.zey.bettersql.help;
 
 import java.sql.Date;
 
