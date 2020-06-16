@@ -42,6 +42,9 @@ dependencies {
 }
 ```
 [![](https://jitpack.io/v/Zey-dev/BetterSql.svg)](https://jitpack.io/#Zey-dev/BetterSql)
+
+# How To Use
+
 ## Create a Database 
 To start, we will have to create Database. The library uses SQLite, so the db will be local. 
 Just make a Database object ``new Database(String where, String name);``, and use the function ``Database#connect();``
