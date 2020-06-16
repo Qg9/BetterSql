@@ -11,6 +11,18 @@ import java.util.List;
 
 public class H {
 
+    /*
+
+        Pay Attention !!!
+        ----------------------------------------------------------------
+        This class does not respect java conventions, BUT but but but but but
+        this library is used to speed up the use of sql and this class is used to go faster.
+        That's why I kept it with that name.
+
+        » So thanks for not pissing me off :D :sheep: :sheep: :sheep:
+
+     */
+
     public static SQLObject ob(int i){
         return new SQLObject(i);
     }
