@@ -13,6 +13,16 @@ public class H {
 
     /*
 
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+
+     */
+
+    /*
+
         Pay Attention !!!
         ----------------------------------------------------------------
         This class does not respect java conventions, BUT but but but but but
@@ -23,16 +33,16 @@ public class H {
 
      */
 
-    public static SQLObject ob(int i){
-        return new SQLObject(i);
+    public static SQLObject ob(int element){
+        return new SQLObject(element);
     }
 
-    public static SQLObject ob(String i){
-        return new SQLObject(i);
+    public static SQLObject ob(String element){
+        return new SQLObject(element);
     }
 
-    public static SQLObject ob(Date i){
-        return new SQLObject(i);
+    public static SQLObject ob(Date element){
+        return new SQLObject(element);
     }
 
     public static TableArguments args(String type, String name, int value, String defaultType){

@@ -4,49 +4,51 @@ import java.sql.Date;
 
 public class SQLObject {
 
-    private Integer n;
-    private String s;
-    private Date d;
+    /*
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+     */
+
+    private Integer number;
+    private String string;
+    private Date date;
 
     public SQLObject(int n){
-        this.n = n;
+        this.number = n;
     }
-
     public SQLObject(String s){
-        this.s = s;
+        this.string = s;
     }
-
     public SQLObject(Date d){
-        this.d = d;
+        this.date = d;
     }
 
     public String getString() {
-        return s;
+        return string;
     }
-
     public void setString(String s) {
-        this.s = s;
+        this.string = s;
     }
-
     public boolean isString(){
-        return s != null;
+        return string != null;
     }
 
     public Date getDate() {
-        return d;
+        return date;
     }
-
     public void setDate(Date d) {
-        this.d = d;
+        this.date = d;
     }
-
     public boolean isDate(){
-        return d != null;
+        return date != null;
     }
 
+    public int getInt() { return number; }
+    public void setInt(int i) {number = i; }
     public boolean isInt(){
-        return n != null;
+        return number != null;
     }
-
-    public int getInt() { return n; }
 }

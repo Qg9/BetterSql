@@ -10,63 +10,45 @@ import java.sql.SQLException;
 
 public class DeleteRequest extends Request{
 
+    /*
+
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+
+     */
+
     public DeleteRequest(Table table, StringBuilder sql) {
         super(table, sql);
     }
 
     @Override
     public SqlResult sendSql() {
-        String s = getSql().toString();
-        if (getCondition() != null) {
-            getSql().append(getCondition().getAdding());
+        if (condition != null) {
+            sql.append(condition.getAdding());
         }
         try {
             Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException exception) {
+            exception.printStackTrace();
         }
-        try (Connection conn = getTable().getDatabase().getConnection()){
-            PreparedStatement p = conn.prepareStatement(s);
+        try (Connection connection = table.getDatabase().getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
 
-            if (getCondition() != null) {
-                if (getCondition() instanceof RepCondition) {
-                    RepCondition cond = (RepCondition) getCondition();
-                    set(1, cond.getObj(), p);
+            if (condition != null) {
+                if (condition instanceof RepCondition) {
+                    RepCondition cond = (RepCondition) condition;
+                    set(1, cond.getObject(), preparedStatement);
                 }
             }
 
-            p.executeUpdate();
-            p.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
         return new SqlResult();
     }
-
-    /*public void sendSql() {
-        String s = getSql().toString();
-        if (getCondition() != null) {
-            getSql().append(getCondition().getAdding());
-        }
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try (Connection conn = getTable().getDatabase().getConnection()){
-            PreparedStatement p = conn.prepareStatement(s);
-
-            if (getCondition() != null) {
-                if (getCondition() instanceof RepCondition) {
-                    RepCondition cond = (RepCondition) getCondition();
-                    set(1, cond.getObj(), p);
-                }
-            }
-
-            p.executeUpdate();
-            p.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

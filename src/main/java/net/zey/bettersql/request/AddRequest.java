@@ -11,7 +11,17 @@ import java.util.List;
 
 public class AddRequest extends Request{
 
-    private List<SQLObject> all;
+    /*
+
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+
+     */
+
+    private final List<SQLObject> all;
 
     public AddRequest(List<SQLObject> all, Table table, StringBuilder sql) {
         super(table, sql);
@@ -20,15 +30,15 @@ public class AddRequest extends Request{
 
     @Override
     public SqlResult sendSql(){
-        String s = getSql().toString();
-        if(getTable().getDatabase().isLocal()){
+        String s = sql.toString();
+        if(table.getDatabase().isLocal()){
             try {
                 Class.forName("org.sqlite.JDBC");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
-        try (Connection conn = getTable().getDatabase().getConnection()){
+        try (Connection conn = table.getDatabase().getConnection()){
             PreparedStatement p = conn.prepareStatement(s);
 
             int i = 1;

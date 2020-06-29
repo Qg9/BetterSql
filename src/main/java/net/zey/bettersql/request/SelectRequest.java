@@ -12,6 +12,16 @@ import java.util.List;
 
 public class SelectRequest extends Request{
 
+    /*
+
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+
+    */
+
     public SelectRequest(Table table, StringBuilder sql) {
         super(table, sql);
     }
@@ -19,39 +29,38 @@ public class SelectRequest extends Request{
     @Override
     public SqlResult sendSql() {
         try {
-            if (getCondition() != null) {
-                getSql().append(getCondition().getAdding());
+            if (condition != null) {
+                sql.append(condition.getAdding());
             }
             try {
                 Class.forName("org.sqlite.JDBC");
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (ClassNotFoundException exception) {
+                exception.printStackTrace();
             }
-            Connection conn = getTable().getDatabase().getConnection();
-            PreparedStatement p = conn.prepareStatement(getSql().toString());
+            Connection connection = table.getDatabase().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
 
-            if (getCondition() != null) {
-                if (getCondition() instanceof RepCondition) {
-                    RepCondition cond = (RepCondition) getCondition();
-                    set(1, cond.getObj(), p);
+            if (condition != null) {
+                if (condition instanceof RepCondition) {
+                    RepCondition condition = (RepCondition) this.condition;
+                    set(1, condition.getObject(), preparedStatement);
                 }
             }
 
-            ResultSet r = p.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             List<SQLObject> all = new ArrayList<>();
-            Table t = getTable();
-            while (r.next()) {
-                for (TableArguments tb : t.getArgs()) {
-                    SQLObject o = get(tb, r);
-                    all.add(o);
+            while (resultSet.next()) {
+                for (TableArguments tableArguments : table.getArgs()) {
+                    SQLObject sqlObject = get(tableArguments, resultSet);
+                    all.add(sqlObject);
                 }
             }
-            r.close();
-            p.close();
+            resultSet.close();
+            preparedStatement.close();
             return new SqlResult(all);
-        }catch(SQLException e){
-            e.printStackTrace();
+        }catch(SQLException exception){
+            exception.printStackTrace();
         }
         return new SqlResult(new ArrayList<>());
     }

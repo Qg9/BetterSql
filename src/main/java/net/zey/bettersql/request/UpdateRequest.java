@@ -12,6 +12,15 @@ import java.util.Collection;
 
 public class UpdateRequest extends Request{
 
+    /*
+
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+
+     */
 
     private final Collection<SQLObject> all;
 
@@ -22,37 +31,37 @@ public class UpdateRequest extends Request{
 
     @Override
     public SqlResult sendSql(){
-        if(getCondition() != null){
-            getSql().append(getCondition().getAdding());
+        if(condition != null){
+            sql.append(condition.getAdding());
         }
         try {
-            if(getTable().getDatabase().isLocal()){
+            if(table.getDatabase().isLocal()){
                 try {
                     Class.forName("org.sqlite.JDBC");
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                } catch (ClassNotFoundException exception) {
+                    exception.printStackTrace();
                 }
             }
-            Connection conn = getTable().getDatabase().getConnection();
-            PreparedStatement p = conn.prepareStatement(getSql().toString());
+            Connection connection = table.getDatabase().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
 
             int i = 1;
-            for(SQLObject o : all){
-                set(i, o, p);
+            for(SQLObject sqlObject : all){
+                set(i, sqlObject, preparedStatement);
                 i++;
             }
 
-            if (getCondition() != null) {
-                if(getCondition() instanceof RepCondition){
-                    RepCondition cond = (RepCondition) getCondition();
-                    set(i, cond.getObj(), p);
+            if (condition != null) {
+                if(condition instanceof RepCondition){
+                    RepCondition condition = (RepCondition) this.condition;
+                    set(i, condition.getObject(), preparedStatement);
                 }
             }
-            p.executeUpdate();
-            p.close();
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
         }
-        catch (SQLException se){
-            se.printStackTrace();
+        catch (SQLException exception){
+            exception.printStackTrace();
         }
         return new SqlResult();
     }

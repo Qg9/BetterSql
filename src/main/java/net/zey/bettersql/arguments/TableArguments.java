@@ -2,12 +2,21 @@ package net.zey.bettersql.arguments;
 
 public class TableArguments {
 
+    /*
 
-    private TableArgumentsType type;
-    private String name;
-    private int value;
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
 
-    private TableDefaultArgumentsType defaultType;
+     */
+
+    private final TableArgumentsType type;
+    private final String name;
+    private final int value;
+
+    private final TableDefaultArgumentsType defaultType;
     private String data;
 
     private boolean unique;
@@ -23,32 +32,16 @@ public class TableArguments {
         return type;
     }
 
-    public void setType(TableArgumentsType type) {
-        this.type = type;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public TableDefaultArgumentsType getDefaultType() {
         return defaultType;
-    }
-
-    public void setDefaultType(TableDefaultArgumentsType defaultType) {
-        this.defaultType = defaultType;
     }
 
     public String getData() {

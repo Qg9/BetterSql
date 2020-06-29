@@ -17,9 +17,21 @@ import java.sql.SQLException;
 
 public abstract class Request {
 
-    private StringBuilder sql;
-    private Table table;
-    private Condition condition;
+    /*
+
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+
+     */
+
+
+    protected final Table table;
+
+    protected StringBuilder sql;
+    protected Condition condition;
 
     public Request(Table table, StringBuilder sql){
         this.table = table;
@@ -29,21 +41,21 @@ public abstract class Request {
     public abstract SqlResult sendSql();
 
     public Request where(String name, SQLObject sql){
-        setCondition(new ClassicCondition(name, sql, Symbol.EQU));
+        condition = new ClassicCondition(name, sql, Symbol.EQU);
         return this;
     }
 
     public Request where(String name, SQLObject sql, Symbol symbol){
-        setCondition(new ClassicCondition(name,sql, symbol));
+        condition = new ClassicCondition(name,sql, symbol);
         return this;
     }
 
     public Request where(String column, boolean isOutdated){
-        setCondition(new DateCondition(column, isOutdated));
+        condition = new DateCondition(column, isOutdated);
         return this;
     }
 
-    public void set(int i, SQLObject o, PreparedStatement ps){
+    protected void set(int i, SQLObject o, PreparedStatement ps){
         try{
             if(o.isInt()){
                 ps.setInt(i, o.getInt());
@@ -57,40 +69,16 @@ public abstract class Request {
         }
     }
 
-    public SQLObject get(TableArguments arg, ResultSet resultSet) throws SQLException {
-        TableArgumentsType tp = arg.getType();
+    protected SQLObject get(TableArguments arguments, ResultSet resultSet) throws SQLException {
+        TableArgumentsType type = arguments.getType();
 
-        if(tp == TableArgumentsType.VARCHAR || tp == TableArgumentsType.TEXT){
-            return H.ob(resultSet.getString(arg.getName()));
-        }else if(tp == TableArgumentsType.INT){
-            return H.ob(resultSet.getInt(arg.getName()));
-        }else if(tp == TableArgumentsType.DATE) {
-            return H.ob(resultSet.getDate(arg.getName()));
+        if(type == TableArgumentsType.VARCHAR || type == TableArgumentsType.TEXT){
+            return H.ob(resultSet.getString(arguments.getName()));
+        }else if(type == TableArgumentsType.INT){
+            return H.ob(resultSet.getInt(arguments.getName()));
+        }else if(type == TableArgumentsType.DATE) {
+            return H.ob(resultSet.getDate(arguments.getName()));
         }
         return null;
-    }
-
-    public StringBuilder getSql() {
-        return sql;
-    }
-
-    public void setSql(StringBuilder sql) {
-        this.sql = sql;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
-
-    public Condition getCondition() {
-        return condition;
-    }
-
-    public void setCondition(Condition condition) {
-        this.condition = condition;
     }
 }

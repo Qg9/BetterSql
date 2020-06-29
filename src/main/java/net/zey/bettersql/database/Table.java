@@ -18,10 +18,19 @@ import java.util.List;
 
 public class Table {
 
+    /*
 
-    private String name;
-    private List<TableArguments> args;
-    private Database data;
+        This library was made by Zey,
+        The objective was to create a new Save System, more easy and swift :d
+        You have no right to take back, copy or steal the code of this class or the entire library.
+        You have more information on how to use the library in readme.md
+        Thanks, Zey.
+
+     */
+
+    private final String name;
+    private final List<TableArguments> args;
+    private final Database data;
 
     public Table(String name, List<TableArguments> args, Database data){
         this.data = data;
