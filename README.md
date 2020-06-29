@@ -24,7 +24,7 @@
   <dependency>
     <groupId>com.github.Zey-dev</groupId>
     <artifactId>BetterSql</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
   </dependency>
 </dependencies>
 ```
@@ -38,9 +38,17 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.Zey-dev:BetterSql:1.1'
+  implementation 'com.github.Zey-dev:BetterSql:1.2'
 }
 ```
+[![](https://jitpack.io/v/Zey-dev/BetterSql.svg)](https://jitpack.io/#Zey-dev/BetterSql)
+
+### Requierment 
+
+First, you must to have [Slf4j](https://mvnrepository.com/artifact/org.slf4j). You need to import [Sqlite-jdbc](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc) if you use a local database, and [HikariCP](https://mvnrepository.com/artifact/com.zaxxer/HikariCP) on a hosted database.
+
+# How To Use
+
 ## Create a Database 
 To start, we will have to create Database. The library uses SQLite, so the db will be local. 
 Just make a Database object ``new Database(String where, String name);``, and use the function ``Database#connect();``
@@ -82,38 +90,39 @@ t.createTable();
 
 ### Add Request
 
-To insert a line in a database you just have to use the function ``Table#add(List<SQLObject>)``, SQLObject can either be a String; or an int, or a date. You can create it with the constructor or with my helper class (H) with the function ``H#ob(String/int/Date);``.
+To insert a line in a database you just have to use the function ``Table#add(SQLObject...)``, SQLObject can either be a String; or an int, or a date. You can create it with the constructor or with my helper class (H) with the function ``H#ob(String/int/Date);``.
 ```java
-t.add(Arrays.asList(H.ob("Adrien"), H.ob(14), H.ob("A very good baker!"))).sendSql();
+t.add(H.ob("Adrien"), H.ob(14), H.ob("A very good baker!")).sendSql();
 ```
 
 ### Update Request
 
-To update a database, use the function Table#update(HashMap<String, SQLObject>), and Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<SQLObject>);`` You can add the function ``Request#where(String, SQLObject);`` which adds a condition, this condition is mandatory for certain request like select or remove.
+To update a database, use the function ``Table#update(HashMap<String, SQLObject>)`` or ``Table#updateAll(SQLObject...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<SQLObject>);`` You can add the function ``Request#where(String, SQLObject);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
 t.update(H.hash(Arrays.asList("age", "bio"), Arrays.asList(H.ob(15), H.ob("My nex biographie")).where("name", H.ob("Zey")).sendSql();
+t.updateAll(H.ob("Zey"), H.ob(15), H.ob("My new Biographie")).where("name", H.ob("Zey")).sendSql();
 ```
 
 ### Select Request
 
-To Select a row in a database, you must use the ``Table#select()`` function; with a condition. The ``SelectRequest#sendSql();`` return a List<SQLObject>. If the list is empty, the condition return false, and therefore the line you are looking for does not exist. You can therefore make a ``Table#add();``
+To Select a row in a database, you must use the ``Table#select()`` function; with a condition. The ``SelectRequest#sendSql();`` return a List<SQLObject>. If the list is empty, the condition return false, and therefore the line you are looking for does not exist. You can therefore make a ``Table#add();``. Finally use ``.get()``.
 ```java
-List<SQLObject> all = t.select().where("name", H.ob("Zey", Sym.EQU)).sendSql();
+List<SQLObject> all = t.select().where("name", H.ob("Zey", Sym.EQU)).sendSql().get();
 
-        String bio;
-        int age;
+String bio;
+int age;
 
-        if(all.isEmpty()){
-            //Do when player isn't in the database
-            //Exemple :
-            t.add(Arrays.asList(H.ob("Zey"), H.ob(14), H.ob("A default Biographie"))).sendSql();
-            age = 14;
-            bio = "A default Biographie";
-        }else{
-            //If the player was in the database
-            age = all.get(1).getInt();
-            bio = all.get(2).getString();
-        }
+if(all.isEmpty()){
+   //Do when player isn't in the database
+   //Exemple :
+   t.add(Arrays.asList(H.ob("Zey"), H.ob(14), H.ob("A default Biographie"))).sendSql();
+   age = 14;
+   bio = "A default Biographie";
+}else{
+   //If the player was in the database
+   age = all.get(1).getInt();
+   bio = all.get(2).getString();
+}
 ```
 ### Delete Request 
 
@@ -131,5 +140,3 @@ Thanks for using my library, if you want to give me a donations don't wait x)
 #### » [My Paypal](https://www.paypal.me/zeydev)
 #### » [My Discord](https://discord.gg/BDbexTa)
 #### » [My Website](https://zey-dev.fr)
-
-[![](https://jitpack.io/v/Zey-dev/BetterSql.svg)](https://jitpack.io/#Zey-dev/BetterSql)
