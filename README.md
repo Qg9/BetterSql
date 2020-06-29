@@ -43,6 +43,10 @@ dependencies {
 ```
 [![](https://jitpack.io/v/Zey-dev/BetterSql.svg)](https://jitpack.io/#Zey-dev/BetterSql)
 
+### Requierment 
+
+First, you must to have [Slf4j](https://mvnrepository.com/artifact/org.slf4j). You need to import [Sqlite-jdbc](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc) if you use a local database, and [HikariCP](https://mvnrepository.com/artifact/com.zaxxer/HikariCP) on a hosted database.
+
 # How To Use
 
 ## Create a Database 
