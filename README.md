@@ -97,13 +97,13 @@ t.add(H.ob("Adrien"), H.ob(14), H.ob("A very good baker!")).sendSql();
 
 ### Update Request
 
-To update a database, use the function ``Table#update(HashMap<Stri
-### Select Requestng, SQLObject>)`` or ``Table#updateAll(SQLObject...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<SQLObject>);`` You can add the function ``Request#where(String, SQLObject);`` which adds a condition, this condition is mandatory for certain request like select or remove.
+To update a database, use the function ``Table#update(HashMap<String, SQLObject>)`` or ``Table#updateAll(SQLObject...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<SQLObject>);`` You can add the function ``Request#where(String, SQLObject);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
 t.update(H.hash(Arrays.asList("age", "bio"), Arrays.asList(H.ob(15), H.ob("My nex biographie")).where("name", H.ob("Zey")).sendSql();
 t.updateAll(H.ob("Zey"), H.ob(15), H.ob("My new Biographie")).where("name", H.ob("Zey")).sendSql();
 ```
 
+### Select Request
 
 To Select a row in a database, you must use the ``Table#select()`` function; with a condition. The ``SelectRequest#sendSql();`` return a List<SQLObject>. If the list is empty, the condition return false, and therefore the line you are looking for does not exist. You can therefore make a ``Table#add();``. Finally use ``.get()``.
 ```java
