@@ -1,6 +1,5 @@
 package net.zey.bettersql.request;
 
-import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.database.Table;
 import net.zey.bettersql.help.SqlResult;
 
@@ -21,9 +20,9 @@ public class AddRequest extends Request{
 
      */
 
-    private final List<SQLObject> all;
+    private final List<Object> all;
 
-    public AddRequest(List<SQLObject> all, Table table, StringBuilder sql) {
+    public AddRequest(List<Object> all, Table table, StringBuilder sql) {
         super(table, sql);
         this.all = all;
     }
@@ -42,7 +41,7 @@ public class AddRequest extends Request{
             PreparedStatement p = conn.prepareStatement(s);
 
             int i = 1;
-            for(SQLObject o : all){
+            for(Object o : all){
                 set(i, o, p);
                 i++;
             }

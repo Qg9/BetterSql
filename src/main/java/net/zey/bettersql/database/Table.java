@@ -2,7 +2,6 @@ package net.zey.bettersql.database;
 
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableDefaultArgumentsType;
-import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.request.AddRequest;
 import net.zey.bettersql.request.DeleteRequest;
 import net.zey.bettersql.request.SelectRequest;
@@ -80,7 +79,7 @@ public class Table {
         }
     }
 
-    public AddRequest add(SQLObject... all){
+    public AddRequest add(Object... all){
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO " + name +  " VALUES(?" );
         for(Object o : all){
@@ -97,7 +96,7 @@ public class Table {
         return new DeleteRequest(this, sql);
     }
 
-    public UpdateRequest update(HashMap<String, SQLObject> all){
+    public UpdateRequest update(HashMap<String, Object> all){
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE " + name + " SET ");
 
@@ -113,7 +112,7 @@ public class Table {
         return new UpdateRequest(this, sql, all.values());
     }
 
-    public UpdateRequest updateAll(SQLObject... all){
+    public UpdateRequest updateAll(Object... all){
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE " + name + " SET ");
 

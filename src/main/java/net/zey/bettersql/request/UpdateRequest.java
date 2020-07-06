@@ -1,7 +1,6 @@
 package net.zey.bettersql.request;
 
 import net.zey.bettersql.condition.*;
-import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.database.Table;
 import net.zey.bettersql.help.SqlResult;
 
@@ -22,9 +21,9 @@ public class UpdateRequest extends Request{
 
      */
 
-    private final Collection<SQLObject> all;
+    private final Collection<Object> all;
 
-    public UpdateRequest(Table table, StringBuilder sql, Collection<SQLObject> all) {
+    public UpdateRequest(Table table, StringBuilder sql, Collection<Object> all) {
         super(table, sql);
         this.all = all;
     }
@@ -46,8 +45,8 @@ public class UpdateRequest extends Request{
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
 
             int i = 1;
-            for(SQLObject sqlObject : all){
-                set(i, sqlObject, preparedStatement);
+            for(Object object : all){
+                set(i, object, preparedStatement);
                 i++;
             }
 

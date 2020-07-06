@@ -1,16 +1,17 @@
 package net.zey.bettersql.request;
 
-import net.zey.bettersql.H;
+import net.zey.bettersql.Help;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableArgumentsType;
 import net.zey.bettersql.condition.ClassicCondition;
 import net.zey.bettersql.condition.Condition;
 import net.zey.bettersql.condition.DateCondition;
+import net.zey.bettersql.help.BetterSqlException;
 import net.zey.bettersql.help.Symbol;
-import net.zey.bettersql.help.SQLObject;
 import net.zey.bettersql.database.Table;
 import net.zey.bettersql.help.SqlResult;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,13 +41,13 @@ public abstract class Request {
 
     public abstract SqlResult sendSql();
 
-    public Request where(String name, SQLObject sql){
+    public Request where(String name, Object sql){
         condition = new ClassicCondition(name, sql, Symbol.EQU);
         return this;
     }
 
-    public Request where(String name, SQLObject sql, Symbol symbol){
-        condition = new ClassicCondition(name,sql, symbol);
+    public Request where(String name, Object sql, Symbol symbol){
+        condition = new ClassicCondition(name, sql, symbol);
         return this;
     }
 
@@ -55,29 +56,33 @@ public abstract class Request {
         return this;
     }
 
-    protected void set(int i, SQLObject o, PreparedStatement ps){
+    protected void set(int i, Object o, PreparedStatement ps){
         try{
-            if(o.isInt()){
-                ps.setInt(i, o.getInt());
-            }else if(o.isDate()){
-                ps.setDate(i, o.getDate());
-            }else if(o.isString()){
-                ps.setString(i, o.getString());
+            if(o instanceof Integer){
+                ps.setInt(i, ((int)o));
+            }else if(o instanceof Date){
+                ps.setDate(i, ((Date)o));
+            }else if(o instanceof String){
+                ps.setString(i, ((String)o));
+            }else if(o instanceof Double){
+                ps.setDouble(i, ((Double)o));
+            }else{
+                throw new BetterSqlException("The object in the preparedStatement wasn't defined in your version !!");
             }
-        }catch(Exception e){
+        }catch(SQLException | BetterSqlException e){
             e.printStackTrace();
         }
     }
 
-    protected SQLObject get(TableArguments arguments, ResultSet resultSet) throws SQLException {
+    protected Object get(TableArguments arguments, ResultSet resultSet) throws SQLException {
         TableArgumentsType type = arguments.getType();
 
         if(type == TableArgumentsType.VARCHAR || type == TableArgumentsType.TEXT){
-            return H.ob(resultSet.getString(arguments.getName()));
+            return resultSet.getString(arguments.getName());
         }else if(type == TableArgumentsType.INT){
-            return H.ob(resultSet.getInt(arguments.getName()));
+            return resultSet.getInt(arguments.getName());
         }else if(type == TableArgumentsType.DATE) {
-            return H.ob(resultSet.getDate(arguments.getName()));
+            return resultSet.getDate(arguments.getName());
         }
         return null;
     }

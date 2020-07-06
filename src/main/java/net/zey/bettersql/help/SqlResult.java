@@ -12,12 +12,33 @@ public class SqlResult {
         Thanks, Zey.
      */
 
-    private List<SQLObject> all;
+    private List<Object> all;
 
     public SqlResult(){}
-    public SqlResult(List<SQLObject> result){
+    public SqlResult(List<Object> result){
         all = result;
     }
 
-    public List<SQLObject> get() { return all; }
+    public List<Object> get() {
+
+        if(all == null){
+            try {
+                throw new BetterSqlException("This request don't have any result.");
+            } catch (BetterSqlException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        if(all.isEmpty()){
+            try {
+                throw new BetterSqlException("The result is null.");
+            } catch (BetterSqlException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        return all;
+    }
 }

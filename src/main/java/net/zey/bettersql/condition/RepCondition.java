@@ -1,7 +1,5 @@
 package net.zey.bettersql.condition;
 
-import net.zey.bettersql.help.SQLObject;
-
 public class RepCondition extends Condition{
 
     /*
@@ -14,14 +12,14 @@ public class RepCondition extends Condition{
 
      */
 
-    private final SQLObject object;
+    private final Object object;
 
-    public RepCondition(String adding, SQLObject object) {
+    public RepCondition(String adding, Object object) {
         super(adding);
         this.object = object;
     }
 
-    public SQLObject getObject() {
+    public Object getObject() {
         return object;
     }
 }
