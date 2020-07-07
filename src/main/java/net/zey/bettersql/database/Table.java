@@ -2,6 +2,7 @@ package net.zey.bettersql.database;
 
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableDefaultArgumentsType;
+import net.zey.bettersql.help.BetterSqlException;
 import net.zey.bettersql.request.AddRequest;
 import net.zey.bettersql.request.DeleteRequest;
 import net.zey.bettersql.request.SelectRequest;

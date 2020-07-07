@@ -29,10 +29,12 @@ public class DeleteRequest extends Request{
         if (condition != null) {
             sql.append(condition.getAdding());
         }
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException exception) {
-            exception.printStackTrace();
+        if(table.getDatabase().isLocal()){
+            try {
+                Class.forName("org.sqlite.JDBC");
+            } catch (ClassNotFoundException exception) {
+                exception.printStackTrace();
+            }
         }
         try (Connection connection = table.getDatabase().getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());

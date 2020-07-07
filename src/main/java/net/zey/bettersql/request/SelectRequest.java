@@ -3,6 +3,7 @@ package net.zey.bettersql.request;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.condition.*;
 import net.zey.bettersql.database.Table;
+import net.zey.bettersql.help.BetterSqlException;
 import net.zey.bettersql.help.SqlResult;
 
 import java.sql.*;
@@ -25,15 +26,17 @@ public class SelectRequest extends Request{
     }
 
     @Override
-    public SqlResult sendSql() {
+    public SqlResult sendSql(){
         try {
             if (condition != null) {
                 sql.append(condition.getAdding());
             }
-            try {
-                Class.forName("org.sqlite.JDBC");
-            } catch (ClassNotFoundException exception) {
-                exception.printStackTrace();
+            if(table.getDatabase().isLocal()){
+                try {
+                    Class.forName("org.sqlite.JDBC");
+                } catch (ClassNotFoundException exception) {
+                    exception.printStackTrace();
+                }
             }
             Connection connection = table.getDatabase().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());

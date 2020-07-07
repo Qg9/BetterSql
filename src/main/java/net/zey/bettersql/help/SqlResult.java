@@ -19,24 +19,14 @@ public class SqlResult {
         all = result;
     }
 
-    public List<Object> get() {
+    public List<Object> get() throws BetterSqlException {
 
         if(all == null){
-            try {
-                throw new BetterSqlException("This request don't have any result.");
-            } catch (BetterSqlException e) {
-                e.printStackTrace();
-            }
-            return null;
+            throw new BetterSqlException("This request don't have any result.");
         }
 
         if(all.isEmpty()){
-            try {
-                throw new BetterSqlException("The result is null.");
-            } catch (BetterSqlException e) {
-                e.printStackTrace();
-            }
-            return null;
+            throw new BetterSqlException("The result is null.");
         }
 
         return all;
