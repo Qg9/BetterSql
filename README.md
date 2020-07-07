@@ -24,7 +24,7 @@
   <dependency>
     <groupId>com.github.Zey-dev</groupId>
     <artifactId>BetterSql</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
   </dependency>
 </dependencies>
 ```
@@ -38,7 +38,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.Zey-dev:BetterSql:1.2'
+  implementation 'com.github.Zey-dev:BetterSql:1.3'
 }
 ```
 [![](https://jitpack.io/v/Zey-dev/BetterSql.svg)](https://jitpack.io/#Zey-dev/BetterSql)
@@ -75,53 +75,48 @@ It's a bit long, isn't it? That's why I created the class H. It allows you to ma
 ```Java
 //That was the same result
 
-/*Before 1.1*/
-Table t = db.getTable("city", Arrays.asList(H.args("va", "name", 32, H.args("in", "age", 1024, "no"), H.args("te", "bio", 1024, "no"));
-/*After*/
-Table t = db.getTable("city", H.args("va", "name", 32, H.args("in", "age", 1024, "no"), H.args("te", "bio", 1024, "no");
-t.createTable();
-```
-We can simplify more !!! I've added more speedy function !
-```Java
-Table t = db.getTable("city", H.varArgs("name", 32), H.intArgs("age", 4), H.textArgs("bio", 1024));
+Table t = db.getTable("city", Help.args("va", "name", 32), Help.args("in", "age", 1024, "no"), Help.args("te", "bio", 1024, "no");
+Table t = db.getTable("city", Help.varArgs("name", 32), Help.intArgs("age", 4), Help.textArgs("bio", 1024));
 t.createTable();
 ```
 ## Request
 
 ### Add Request
 
-To insert a line in a database you just have to use the function ``Table#add(SQLObject...)``, SQLObject can either be a String; or an int, or a date. You can create it with the constructor or with my helper class (H) with the function ``H#ob(String/int/Date);``.
+To insert a line in a database you just have to use the function ``Table#add(Object...)``, don't forget the ``Request#sendSql();``.
 ```java
-t.add(H.ob("Adrien"), H.ob(14), H.ob("A very good baker!")).sendSql();
+t.add("Adrien", 14, "A very good baker!").sendSql();
 ```
 
 ### Update Request
 
-To update a database, use the function ``Table#update(HashMap<String, SQLObject>)`` or ``Table#updateAll(SQLObject...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<SQLObject>);`` You can add the function ``Request#where(String, SQLObject);`` which adds a condition, this condition is mandatory for certain request like select or remove.
+To update a database, use the function ``Table#update(HashMap<String, Object>)`` or ``Table#updateAll(Object...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my H class which has a function to create HashMap, ``H#hash(List<String>, List<Object>);`` You can add the function ``Request#where(String, Object);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
-t.update(H.hash(Arrays.asList("age", "bio"), Arrays.asList(H.ob(15), H.ob("My nex biographie")).where("name", H.ob("Zey")).sendSql();
-t.updateAll(H.ob("Zey"), H.ob(15), H.ob("My new Biographie")).where("name", H.ob("Zey")).sendSql();
+t.updateAll("Zey", 15, "My new Biographie").where("name", "Zey").sendSql();
 ```
 
 ### Select Request
 
-To Select a row in a database, you must use the ``Table#select()`` function; with a condition. The ``SelectRequest#sendSql();`` return a List<SQLObject>. If the list is empty, the condition return false, and therefore the line you are looking for does not exist. You can therefore make a ``Table#add();``. Finally use ``.get()``.
+To Select a row in a database, you must use the ``Table#select()`` function; with a condition. The ``SelectRequest#sendSql();`` return a List<SQLObject>. If the list is empty, the condition return false, and therefore the line you are looking for does not exist. Finally use ``SqlResult#get()``. You can therefore make a ``Table#add();``.
 ```java
-List<SQLObject> all = t.select().where("name", H.ob("Zey", Sym.EQU)).sendSql().get();
-
 String bio;
 int age;
 
-if(all.isEmpty()){
+try{
+
+   List<Object> all = t.select().where("name", "Zey").sendSql().get();
+   //If the player was in the database
+   age = (int) all.get(1);
+   bio = (String) all.get(2);
+ 
+}catch(BetterSqlException exception){
+ 
    //Do when player isn't in the database
    //Exemple :
-   t.add(Arrays.asList(H.ob("Zey"), H.ob(14), H.ob("A default Biographie"))).sendSql();
-   age = 14;
-   bio = "A default Biographie";
-}else{
-   //If the player was in the database
-   age = all.get(1).getInt();
-   bio = all.get(2).getString();
+   t.add("Zey", 14, "A default Biographie").sendSql();
+   age = (int) 14;
+   bio = (String) "A default Biographie";
+   
 }
 ```
 ### Delete Request 
@@ -130,7 +125,7 @@ To delete a Row in a database, you must use ``Table#delete()`` function and a co
 to send your request.
 
 ```java
-t.delete().where("name", H.ob("Zey"), Sym.EQU).sendSql();
+t.delete().where("name", "Zey").sendSql();
 ```
 
 ## Thanks !
