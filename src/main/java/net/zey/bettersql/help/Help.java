@@ -1,4 +1,4 @@
-package net.zey.bettersql;
+package net.zey.bettersql.help;
 
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableArgumentsType;

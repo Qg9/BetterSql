@@ -2,7 +2,7 @@ package net.zey.bettersql.request;
 
 import net.zey.bettersql.condition.*;
 import net.zey.bettersql.database.Table;
-import net.zey.bettersql.help.SqlResult;
+import net.zey.bettersql.result.Result;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +29,7 @@ public class UpdateRequest extends Request{
     }
 
     @Override
-    public SqlResult sendSql(){
+    public Result sendSql(){
         if(condition != null){
             sql.append(condition.getAdding());
         }
@@ -62,6 +62,6 @@ public class UpdateRequest extends Request{
         catch (SQLException exception){
             exception.printStackTrace();
         }
-        return new SqlResult();
+        return new Result();
     }
 }

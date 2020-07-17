@@ -1,6 +1,5 @@
 package net.zey.bettersql.request;
 
-import net.zey.bettersql.Help;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.arguments.TableArgumentsType;
 import net.zey.bettersql.condition.ClassicCondition;
@@ -9,7 +8,7 @@ import net.zey.bettersql.condition.DateCondition;
 import net.zey.bettersql.help.BetterSqlException;
 import net.zey.bettersql.help.Symbol;
 import net.zey.bettersql.database.Table;
-import net.zey.bettersql.help.SqlResult;
+import net.zey.bettersql.result.Result;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -39,7 +38,7 @@ public abstract class Request {
         this.sql = sql;
     }
 
-    public abstract SqlResult sendSql();
+    public abstract Result sendSql();
 
     public Request where(String name, Object sql){
         condition = new ClassicCondition(name, sql, Symbol.EQU);

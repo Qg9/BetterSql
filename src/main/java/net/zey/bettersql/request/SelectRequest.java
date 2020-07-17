@@ -3,8 +3,7 @@ package net.zey.bettersql.request;
 import net.zey.bettersql.arguments.TableArguments;
 import net.zey.bettersql.condition.*;
 import net.zey.bettersql.database.Table;
-import net.zey.bettersql.help.BetterSqlException;
-import net.zey.bettersql.help.SqlResult;
+import net.zey.bettersql.result.Result;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,11 +25,12 @@ public class SelectRequest extends Request{
     }
 
     @Override
-    public SqlResult sendSql(){
+    public Result sendSql(){
         try {
             if (condition != null) {
                 sql.append(condition.getAdding());
             }
+
             if(table.getDatabase().isLocal()){
                 try {
                     Class.forName("org.sqlite.JDBC");
@@ -38,6 +38,7 @@ public class SelectRequest extends Request{
                     exception.printStackTrace();
                 }
             }
+
             Connection connection = table.getDatabase().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql.toString());
 
@@ -50,22 +51,34 @@ public class SelectRequest extends Request{
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            List<Object> all = new ArrayList<>();
-            while (resultSet.next()) {
-                for (TableArguments tableArguments : table.getArgs()) {
-                    Object object = get(tableArguments, resultSet);
-                    all.add(object);
+            if(condition != null) {
+                List<Object> all = new ArrayList<>();
+                while (resultSet.next()) {
+                    for (TableArguments tableArguments : table.getArgs()) {
+                        Object object = get(tableArguments, resultSet);
+                        all.add(object);
+                    }
                 }
+                resultSet.close();
+                preparedStatement.close();
+                return new Result().setAll(all);
+            }else{
+                List<List<Object>> all = new ArrayList<>();
+                while (resultSet.next()) {
+                    List<Object> contents = new ArrayList<>();
+                    for (TableArguments tableArguments : table.getArgs()) {
+                        Object object = get(tableArguments, resultSet);
+                        contents.add(object);
+                    }
+                    all.add(contents);
+                }
+                resultSet.close();
+                preparedStatement.close();
+                return new Result().setAlls(all);
             }
-
-            resultSet.close();
-            preparedStatement.close();
-
-            return new SqlResult(all);
         }catch(SQLException exception){
             exception.printStackTrace();
         }
-        return new SqlResult(new ArrayList<>());
+        return new Result();
     }
-
 }

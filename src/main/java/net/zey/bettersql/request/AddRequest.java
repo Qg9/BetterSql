@@ -1,7 +1,7 @@
 package net.zey.bettersql.request;
 
 import net.zey.bettersql.database.Table;
-import net.zey.bettersql.help.SqlResult;
+import net.zey.bettersql.result.Result;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,7 +28,7 @@ public class AddRequest extends Request{
     }
 
     @Override
-    public SqlResult sendSql(){
+    public Result sendSql(){
         String s = sql.toString();
         if(table.getDatabase().isLocal()){
             try {
@@ -51,6 +51,6 @@ public class AddRequest extends Request{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new SqlResult();
+        return new Result();
     }
 }
