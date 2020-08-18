@@ -25,7 +25,7 @@ public class DeleteRequest extends Request{
     }
 
     @Override
-    public Result sendSql() {
+    public Result sendSql() throws NullPointerException{
         if (condition != null) {
             sql.append(condition.getAdding());
         }

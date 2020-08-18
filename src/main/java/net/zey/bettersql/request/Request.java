@@ -38,7 +38,7 @@ public abstract class Request {
         this.sql = sql;
     }
 
-    public abstract Result sendSql();
+    public abstract Result sendSql() throws NullPointerException;
 
     public Request where(String name, Object sql){
         condition = new ClassicCondition(name, sql, Symbol.EQU);
