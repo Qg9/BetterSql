@@ -7,9 +7,12 @@ public class Test {
 
     public static void main(String[] args){
 
-        Database db = new SqliteDatabase("C:/Users/gq179/Desktop/dev", "test");
-        Table t = db.getTable("test", Help.varArgs("hey", 50));
+        Database db = new SqliteDatabase("C:/src/dev", "test");
+        Table t = db.getTable("test", Help.varArgs("hey", 50), Help.intArgs("i", 5));
         t.createTable();
+
+        t.add("test", 50).sendSql();
+
         t.delete().where("hey", "test").sendSql();
     }
 

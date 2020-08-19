@@ -58,6 +58,7 @@ public class UpdateRequest extends Request{
             }
             preparedStatement.executeUpdate();
             preparedStatement.close();
+            connection.close();
         }
         catch (SQLException exception){
             exception.printStackTrace();

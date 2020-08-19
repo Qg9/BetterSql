@@ -1,6 +1,7 @@
 package net.zey.bettersql.database;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 
 public class SqliteDatabase extends Database{
@@ -15,37 +16,41 @@ public class SqliteDatabase extends Database{
 
      */
 
-    public SqliteDatabase(String where, String name){
+    private String url;
+
+    public SqliteDatabase(String where, String name) {
         super(name);
+
         try {
-
-            File f = new File(where, name + ".db");
-            if(!f.exists())f.createNewFile();
-
+            if(!new File(where).exists()) {
+                new File(where).mkdir();
+            }
+            Connection conn = null;
             Class.forName("org.sqlite.JDBC");
-            setConnection(DriverManager.getConnection("jdbc:sqlite:" + where + "/" + name + ".db"));
-
-        } catch (Exception e) {
+            conn = DriverManager.getConnection("jdbc:sqlite:" + where + "/" + getName() + ".db");
+            if (conn != null) {
+                DatabaseMetaData meta = conn.getMetaData();
+                this.url = meta.getURL();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }catch(Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void close() {
-        try {
-            getConnection().close();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    @Override
-    public boolean isConnected() {
-        return getConnection() != null;
-    }
+    public void close(){}
 
     @Override
     public boolean isLocal() {
         return true;
     }
+
+    @Override
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(url);
+    }
+
 }

@@ -74,6 +74,7 @@ public class SelectRequest extends Request{
                 }
                 resultSet.close();
                 preparedStatement.close();
+                connection.close();
                 return new Result().setAlls(all);
             }
         }catch(SQLException exception){

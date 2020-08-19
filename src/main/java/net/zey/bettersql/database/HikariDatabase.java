@@ -52,13 +52,4 @@ public class HikariDatabase extends Database {
         return null;
     }
 
-    @Override
-    public boolean isConnected() {
-        try {
-            return source.getConnection() != null;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
-    }
 }
