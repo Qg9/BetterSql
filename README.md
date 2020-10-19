@@ -24,7 +24,7 @@
   <dependency>
     <groupId>com.github.Zey-dev</groupId>
     <artifactId>BetterSql</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
   </dependency>
 </dependencies>
 ```
