@@ -54,7 +54,7 @@ To start, we will have to create Database.
 Just make a Database object with SqliteDatabase or HikariDatabase, and use the function ``Database#connect();``
 ```Java
  Database db = new SqliteDatabase("C:/Users/gq179/Desktop", "storage");
- Database db = new HikariDatabase("storage", "Zey", "MyPassWord", "https://github.com/database", 3306, 20);
+ Database db = new HikariDatabase("storage", "Gabriel", "P@ssw0rd", "https://github.com/database", 3306, 20);
 ```
 
 ## Create Your Table
@@ -90,7 +90,7 @@ t.add("Adrien", 14, "A very good baker!").sendSql();
 
 To update a database, use the function ``Table#updateAll(Object...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my Help class which has a function to create HashMap, ``H#hash(List<String>, List<Object>);`` You can add the function ``Request#where(String, Object);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
-t.updateAll("Zey", 15, "My new Biographie").where("name", "Zey").sendSql();
+t.updateAll("Gabriel", 15, "My new Biographie").where("name", "Zey").sendSql();
 ```
 
 ### Select Request
@@ -107,7 +107,7 @@ try{
 }catch(BetterSqlException exception){ 
    //Do when player isn't in the database
    //Exemple :
-   t.add("Zey", 14, "A default Biographie").sendSql();
+   t.add("Gabriel", 14, "A default Biographie").sendSql();
    age = (int) 14;
    bio = (String) "A default Biographie"; 
 }
@@ -118,7 +118,7 @@ To delete a Row in a database, you must use ``Table#delete()`` function and a co
 to send your request.
 
 ```java
-t.delete().where("name", "Zey").sendSql();
+t.delete().where("name", "Gabriel").sendSql();
 ```
 
 ## Thanks !
