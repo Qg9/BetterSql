@@ -22,7 +22,7 @@
 
 <dependencies>
   <dependency>
-    <groupId>com.github.Zey-dev</groupId>
+    <groupId>com.github.betterstudio</groupId>
     <artifactId>BetterSql</artifactId>
     <version>1.5</version>
   </dependency>
@@ -38,10 +38,10 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.Zey-dev:BetterSql:1.5'
+  implementation 'com.github.betterstudio:BetterSql:1.5'
 }
 ```
-[![](https://jitpack.io/v/Zey-dev/BetterSql.svg)](https://jitpack.io/#Zey-dev/BetterSql)
+[![](https://jitpack.io/v/betterstudio/BetterSql.svg)](https://jitpack.io/#betterstudio/BetterSql)
 
 ### Requierment 
 
