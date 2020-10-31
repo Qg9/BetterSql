@@ -2,6 +2,7 @@ package fr.better.sql.request;
 
 
 
+import fr.better.sql.help.ResultBuilder;
 import fr.better.sql.request.condition.RepCondition;
 import fr.better.sql.database.ComplexTable;
 import fr.better.sql.help.Result;
@@ -49,6 +50,6 @@ public class UpdateRequest extends Request{
         catch (SQLException | ClassNotFoundException exception){
             exception.printStackTrace();
         }
-        return new Result();
+        return new ResultBuilder();
     }
 }

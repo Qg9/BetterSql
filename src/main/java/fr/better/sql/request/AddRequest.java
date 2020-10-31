@@ -2,6 +2,7 @@ package fr.better.sql.request;
 
 import fr.better.sql.database.ComplexTable;
 import fr.better.sql.help.Result;
+import fr.better.sql.help.ResultBuilder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,6 +42,6 @@ public class AddRequest extends Request{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new Result();
+        return new ResultBuilder();
     }
 }
