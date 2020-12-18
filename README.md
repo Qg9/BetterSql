@@ -38,7 +38,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'com.github.betterstudio:BetterSql:1.5'
+  implementation 'com.github.betterstudio:BetterSql:1.7'
 }
 ```
 [![](https://jitpack.io/v/betterstudio/BetterSql.svg)](https://jitpack.io/#betterstudio/BetterSql)
@@ -90,7 +90,7 @@ t.add("Adrien", 14, "A very good baker!").sendSql();
 
 To update a database, use the function ``Table#updateAll(Object...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my Help class which has a function to create HashMap, ``H#hash(List<String>, List<Object>);`` You can add the function ``Request#where(String, Object);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
-t.updateAll("Gabriel", 15, "My new Biographie").where("name", "Zey").sendSql();
+t.updateAll("Gabriel", 15, "My new Biographie").where("name", "KEVIN").sendSql();
 ```
 
 ### Select Request
