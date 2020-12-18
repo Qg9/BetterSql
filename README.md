@@ -53,8 +53,7 @@ First, you must to have [Slf4j](https://mvnrepository.com/artifact/org.slf4j). Y
 To start, we will have to create Database. 
 Just make a Database object with SqliteDatabase or HikariDatabase, and use the function ``Database#connect();``
 ```Java
- Database db = new SqliteDatabase("C:/Users/gq179/Desktop", "storage");
- Database db = new HikariDatabase("storage", "Gabriel", "P@ssw0rd", "https://github.com/database", 3306, 20);
+ Database db = new Database("C:/Users/gq179/Desktop", "storage");
 ```
 
 ## Create Your Table
