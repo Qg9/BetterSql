@@ -82,14 +82,14 @@ t.createTable();
 
 To insert a line in a database you just have to use the function ``Table#add(Object...)``, don't forget the ``Request#sendSql();``.
 ```java
-t.add("Adrien", 14, "A very good baker!").sendSql();
+t.add("Kevin", 14, "A very good baker!").sendSql();
 ```
 
 ### Update Request
 
 To update a database, use the function ``Table#updateAll(Object...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my Help class which has a function to create HashMap, ``H#hash(List<String>, List<Object>);`` You can add the function ``Request#where(String, Object);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
-t.updateAll("Gabriel", 15, "My new Biographie").where("name", "KEVIN").sendSql();
+t.updateAll("Kevin", 15, "My new Biographie").where("name", "KEVIN").sendSql();
 ```
 
 ### Select Request
@@ -106,7 +106,7 @@ try{
 }catch(BetterSqlException exception){ 
    //Do when player isn't in the database
    //Exemple :
-   t.add("Gabriel", 14, "A default Biographie").sendSql();
+   t.add("Kevin", 14, "A default Biographie").sendSql();
    age = (int) 14;
    bio = (String) "A default Biographie"; 
 }
@@ -117,7 +117,7 @@ To delete a Row in a database, you must use ``Table#delete()`` function and a co
 to send your request.
 
 ```java
-t.delete().where("name", "Gabriel").sendSql();
+t.delete().where("name", "Kevin").sendSql();
 ```
 
 ## Thanks !
