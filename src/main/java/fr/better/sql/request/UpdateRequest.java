@@ -26,7 +26,6 @@ public class UpdateRequest extends Request{
         if(condition != null){
             sql.append(condition.getAdding());
         }
-        System.out.println(sql.toString());
         try {
             Class.forName("org.sqlite.JDBC");
             Connection connection = table.getDatabase().getConnection();
