@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class AdvancedDatabase{
+public class AdvancedDatabase {
 
     private final String name;
     private final String url;

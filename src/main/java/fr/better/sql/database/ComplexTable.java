@@ -81,11 +81,6 @@ public class ComplexTable implements Table{
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE " + name + " SET ");
 
-        List<String> names = new ArrayList<>();
-        for(String name: names){
-            names.add(name);
-        }
-
         int column = 0;
         for(String up : names) {
             if (column == 0) {

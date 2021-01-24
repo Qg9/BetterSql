@@ -1,5 +1,7 @@
 package fr.better.sql.help;
 
+import fr.better.sql.database.Database;
+import fr.better.sql.database.Table;
 import fr.better.sql.database.arguments.TableArguments;
 import fr.better.sql.database.arguments.TableArgumentsType;
 
