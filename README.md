@@ -24,7 +24,7 @@
   <dependency>
     <groupId>com.github.betterstudio</groupId>
     <artifactId>BetterSql</artifactId>
-    <version>1.5</version>
+    <version>1.7</version>
   </dependency>
 </dependencies>
 ```
@@ -43,17 +43,13 @@ dependencies {
 ```
 [![](https://jitpack.io/v/betterstudio/BetterSql.svg)](https://jitpack.io/#betterstudio/BetterSql)
 
-### Requierment 
-
-First, you must to have [Slf4j](https://mvnrepository.com/artifact/org.slf4j). You need to import [Sqlite-jdbc](https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc) if you use a local database, and [HikariCP](https://mvnrepository.com/artifact/com.zaxxer/HikariCP) on a hosted database.
-
 # How To Use
 
 ## Create a Database 
 To start, we will have to create Database. 
 Just make a Database object with SqliteDatabase or HikariDatabase, and use the function ``Database#connect();``
 ```Java
- Database db = new Database("C:/Users/gq179/Desktop", "storage");
+ Database db = new Database("C:/Users/KEVIN/Desktop", "storage");
 ```
 
 ## Create Your Table
@@ -61,8 +57,8 @@ To create your table, simply create a table object with the function ``Database#
 ```Java
 List<TableArguments> tbArgs = new ArrayList<>();
 tbArgs.add(new TableArguments(TableArgumentsType.VARCHAR, "name", 32, TableDefaultArgumentsType.NO));
-tbArgs.add(new TableArguments(TableArgumentsType.INT, "age", 1024, TableDefaultArgumentsType.NO));
-tbArgs.add(new TableArguments(TableArgumentsType.VARCHAR, "bio", 32, TableDefaultArgumentsType.DEFAULT_VALUE).setData("Default Biographie Set !"));
+tbArgs.add(new TableArguments(TableArgumentsType.INT, "age", TableDefaultArgumentsType.NO));
+tbArgs.add(new TableArguments(TableArgumentsType.TEXT, "bio", 1024, TableDefaultArgumentsType.DEFAULT_VALUE).setData("Default Biographie Set !"));
 
 Table t = db.getTable("city", tbArgs);
 t.createTable();
@@ -89,7 +85,7 @@ t.add("Kevin", 14, "A very good baker!").sendSql();
 
 To update a database, use the function ``Table#updateAll(Object...);``, and ``Request#sendSql()`` afterwards. To make it faster, you can always use my Help class which has a function to create HashMap, ``H#hash(List<String>, List<Object>);`` You can add the function ``Request#where(String, Object);`` which adds a condition, this condition is mandatory for certain request like select or remove.
 ```java
-t.updateAll("Kevin", 15, "My new Biographie").where("name", "KEVIN").sendSql();
+t.update("Kevin", 15, "My new Biographie").where("name", "KEVIN").sendSql();
 ```
 
 ### Select Request
@@ -99,7 +95,7 @@ To Select a row in a database, you must use the ``Table#select()`` function, wit
 String bio;
 int age;
 try{
-   List<Object> all = t.select().where("name", "Zey").sendSql().get();
+   List<Object> all = t.select().where("name", "Kev'").sendSql().get();
    //If the player was in the database
    age = (int) all.get(1);
    bio = (String) all.get(2);
@@ -123,7 +119,3 @@ t.delete().where("name", "Kevin").sendSql();
 ## Thanks !
 
 Thanks for using my library, if you want to give me a donations don't wait x) 
-
-#### » [My Paypal](https://www.paypal.me/zeydev)
-#### » [My Discord](https://discord.gg/BDbexTa)
-#### » [My Website](https://zey-dev.fr)
